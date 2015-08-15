@@ -1,4 +1,4 @@
-require "log_scroll/version"
+require_relative "log_scroll/version"
 
 module LogScroll
   def self.new(file_name:, max_size: 100)
@@ -18,6 +18,18 @@ module LogScroll
       end
 
       delete_oldest_entry!
+    end
+
+    def entries
+      @lines
+    end
+
+    def newest_entry
+      @lines.last
+    end
+
+    def oldest_entry
+      @lines.first
     end
 
     private
@@ -46,7 +58,3 @@ module LogScroll
     attr_reader :file_name, :max_size
   end
 end
-
-# scroll = LogScroll.new(file_name: "test.log", max_size: 4)
-# scroll.log("hello4")
-# p scroll

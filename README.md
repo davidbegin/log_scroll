@@ -26,10 +26,17 @@ Proposed API:
 
 ```ruby
 scroll = LogScroll.new(max_size: 10, file_name: "development.log")
-scroll.log("log entry here")
+scroll.log("first log entry")
+scroll.log("second log entry")
 
 scroll.entries
-# => ["log entry here"]
+# => ["first log entry\n", "second log entry\n"]
+
+puts "Oldest Entry: " + scroll.oldest_entry
+# => "Oldest Entry: first log entry"
+
+puts "Newest Entry: " + scroll.newest_entry
+# => "Newest Entry: second log entry"
 ```
 
 ## Development
