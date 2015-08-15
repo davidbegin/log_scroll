@@ -1,4 +1,5 @@
 require_relative "log_scroll/version"
+require "fileutils"
 
 module LogScroll
   def self.new(file_name:, max_size: 100)
@@ -9,6 +10,7 @@ module LogScroll
     def initialize(file_name:, max_size:)
       @file_name = file_name
       @max_size  = max_size
+      find_create_history_file!
       lines
     end
 
@@ -35,6 +37,8 @@ module LogScroll
 
     private
 
+    attr_reader :file_name, :max_size
+
     def delete_oldest_entry!
       if line_count > max_size
         File.open(file_name, "w+") do |file|
@@ -49,13 +53,17 @@ module LogScroll
     end
 
     def lines
-      @lines ||= log_file.each_line.to_a
+      @lines ||= Array(log_file.each_line.to_a)
     end
 
     def line_count
       @line_count ||= lines.count
     end
 
-    attr_reader :file_name, :max_size
+    def find_create_history_file!
+      unless File.exists? file_name
+        FileUtils.touch file_name
+      end
+    end
   end
 end
