@@ -9,6 +9,7 @@ module LogScroll
     def initialize(file_name:, max_size:)
       @file_name = file_name
       @max_size  = max_size
+      lines
     end
 
     def log(log_entry)
