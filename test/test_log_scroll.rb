@@ -45,6 +45,13 @@ class TestLogScroll < Minitest::Test
     assert_equal subject.entries.map(&:chomp), ["Entry 2", "Entry 3"]
   end
 
+  def test_it_deletes_all_extra_lines_over_max
+    subject = LogScroll.new(file_name: "test_file.log", max_size: 1)
+    subject.log("Entry 3")
+    assert_equal subject.entries.count, 1
+    assert_equal subject.entries.map(&:chomp), ["Entry 3"]
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::LogScroll::VERSION
   end

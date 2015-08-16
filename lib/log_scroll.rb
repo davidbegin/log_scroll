@@ -7,57 +7,53 @@ module LogScroll
   end
 
   class Scroll
+
     def initialize(file_name:, max_size:)
       @file_name = file_name
       @max_size  = max_size
       find_create_history_file!
-      lines
+      entries
     end
 
     def log(log_entry)
-      File.open(file_name, "a+") do |file|
-        file.write(log_entry)
-        file.write("\n")
-      end
-
-      delete_oldest_entry!
+      append_log_entry(log_entry)
     end
 
     def entries
-      @lines
+      @entries = Array(log_file.each_line.to_a)
     end
 
     def newest_entry
-      @lines.last
+      @entries.last
     end
 
     def oldest_entry
-      @lines.first
+      @entries.first
+    end
+
+    def entry_count
+      entries.count
     end
 
     private
 
     attr_reader :file_name, :max_size
 
-    def delete_oldest_entry!
-      if line_count > max_size
-        File.open(file_name, "w+") do |file|
-          @lines.shift
-          file.write(@lines.join(""))
-        end
+    def append_log_entry(log_entry)
+      @entries.shift if entry_count == max_size
+      if entry_count >= max_size
+        ((entry_count + 1) - max_size).times { @entries.shift }
+      end
+
+      @entries << "#{log_entry}\n"
+
+      File.open(file_name, "w+") do |file|
+        file.write(@entries.join(""))
       end
     end
 
     def log_file
       File.open(file_name, "r+")
-    end
-
-    def lines
-      @lines = Array(log_file.each_line.to_a)
-    end
-
-    def line_count
-      lines.count
     end
 
     def find_create_history_file!
