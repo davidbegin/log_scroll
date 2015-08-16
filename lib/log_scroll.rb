@@ -49,15 +49,15 @@ module LogScroll
     end
 
     def log_file
-      @log_file ||= File.open(file_name, "r+")
+      File.open(file_name, "r+")
     end
 
     def lines
-      @lines ||= Array(log_file.each_line.to_a)
+      @lines = Array(log_file.each_line.to_a)
     end
 
     def line_count
-      @line_count ||= lines.count
+      lines.count
     end
 
     def find_create_history_file!
