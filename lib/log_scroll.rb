@@ -20,7 +20,7 @@ module LogScroll
     end
 
     def entries
-      @entries = Array(log_file.each_line.to_a)
+      @entries ||= Array(log_file.each_line.to_a)
     end
 
     def newest_entry

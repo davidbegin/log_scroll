@@ -31,6 +31,10 @@ class TestLogScroll < Minitest::Test
     assert_equal @subject.oldest_entry.chomp, "Entry 1"
   end
 
+  def test_enntry_count_is_a_real_thing
+    assert_equal @subject.entry_count, 2
+  end
+
   def test_log_adds_a_new_entry
     old_entry_count = @subject.entries.count
     @subject.log("Entry 3")
