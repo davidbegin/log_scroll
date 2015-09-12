@@ -1,5 +1,5 @@
-require_relative "log_scroll/version"
-require_relative "log_scroll/scroll"
+require "log_scroll/version"
+require "log_scroll/scroll"
 
 module LogScroll
   def self.new(file_name:, max_size: 100)
