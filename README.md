@@ -1,5 +1,7 @@
 # LogScroll
 
+[![Code Climate](https://codeclimate.com/github/presidentJFK/log_scroll/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/log_scroll)
+
 ### \*\*WARNING THIS GEM IS PRE 1.0 AND STILL UNSTABLE\*\*
 
 A simple gem for creating a rolling log files
