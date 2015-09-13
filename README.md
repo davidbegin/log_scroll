@@ -1,6 +1,6 @@
 # LogScroll
 
-[![Code Climate](https://codeclimate.com/github/presidentJFK/log_scroll/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/log_scroll) [![Dependency Status](https://gemnasium.com/presidentJFK/log_scroll.svg)](https://gemnasium.com/presidentJFK/log_scroll)
+[![Build Status](https://travis-ci.org/presidentJFK/log_scroll.svg?branch=master)](https://travis-ci.org/presidentJFK/log_scroll) [![Test Coverage](https://codeclimate.com/github/presidentJFK/log_scroll/badges/coverage.svg)](https://codeclimate.com/github/presidentJFK/log_scroll/coverage) [![Code Climate](https://codeclimate.com/github/presidentJFK/log_scroll/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/log_scroll) [![Dependency Status](https://gemnasium.com/presidentJFK/log_scroll.svg)](https://gemnasium.com/presidentJFK/log_scroll)
 
 ### \*\*WARNING THIS GEM IS PRE 1.0 AND STILL UNSTABLE\*\*
 
