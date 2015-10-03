@@ -6,7 +6,7 @@ module LogScroll
     # @param file_name [String] the name of the file to save log entries to
     # @param max_size [Integer] the number of entries to save before deleting the oldest
     #
-    # the name of the file_name passed in will be found or created in the directory
+    # The name of the file_name passed in will be found or created in the directory
     # LogScroll is loaded in.
     def initialize(file_name:, max_size:)
       @file_name = file_name
@@ -30,7 +30,7 @@ module LogScroll
       @entries ||= Array(log_file.each_line.to_a)
     end
 
-    # @return [String] returns the last entry logged with LogScroll
+    # @return [String] returns the newest/last entry logged with LogScroll
     def newest_entry
       @entries.last
     end
@@ -52,15 +52,22 @@ module LogScroll
     alias_method :load_entries!, :entries
 
     def append_log_entry(log_entry)
-      @entries.shift if entry_count == max_size
-      if entry_count >= max_size
-        ((entry_count + 1) - max_size).times { @entries.shift }
-      end
-
+      delete_entries_past_limit!
       @entries << "#{log_entry}\n"
+      write_entries_to_file!
+    end
 
+    def write_entries_to_file!
       File.open(file_name, "w+") do |file|
         file.write(@entries.join(""))
+      end
+    end
+
+    def delete_entries_past_limit!
+      @entries.shift if entry_count == max_size
+
+      if entry_count >= max_size
+        ((entry_count + 1) - max_size).times { @entries.shift }
       end
     end
 
